@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visual Systems Analyst</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="chatgpt-shell">
+      <header class="chatgpt-topbar">
+        <button class="top-title" id="titleMenu" type="button">
+          <span>Visual Systems Analyst</span>
+          <span class="chevron">v</span>
+        </button>
+        <div class="top-actions">
+          <span id="connectionStatus" class="connection-status">Checking</span>
+          <button id="dashboardToggle" class="top-button" type="button">Command center</button>
+          <button id="settingsToggle" class="top-button" type="button">Settings</button>
+          <button id="clear" class="top-button" type="button">New chat</button>
+        </div>
+      </header>
+
+      <main class="chatgpt-main">
+        <section id="welcome" class="welcome">
+          <div class="avatar-mark">◎</div>
+          <h1>Visual Systems Analyst</h1>
+          <p>Direct, humane visual systems analyst grounded in evidence and ethics.</p>
+
+          <div class="starter-grid">
+            <button type="button" data-prompt="Run a triadic read on this issue: strategic game, symbolic script, material future, then translate it into a visual concept.">Run a triadic read on this issue</button>
+            <button type="button" data-prompt="Create a symbolic mural prompt for this topic.">Create a symbolic mural prompt for this topic</button>
+            <button type="button" data-prompt="Critique and refine this visual concept.">Critique and refine this visual concept</button>
+            <button type="button" data-prompt="Take this from analysis to final image.">Take this from analysis to final image</button>
+          </div>
+        </section>
+
+        <section id="chatLog" class="chat-log" aria-live="polite"></section>
+      </main>
+
+      <section id="dashboardView" class="dashboard-view" aria-live="polite" hidden></section>
+
+      <aside id="settingsPanel" class="settings-panel" aria-label="Optional steering">
+        <div class="settings-head">
+          <h2>Steering</h2>
+          <button id="settingsClose" class="top-button" type="button">Close</button>
+        </div>
+
+        <label class="field-label" for="emotion">Emotional weather</label>
+        <select id="emotion">
+          <option>Let the analyst choose</option>
+          <option>Manic analytical energy</option>
+          <option>Rage</option>
+          <option>Grief</option>
+          <option>Absurdity</option>
+          <option>Defiance</option>
+          <option>Dread</option>
+          <option>Tragicomic exhaustion</option>
+        </select>
+
+        <label class="field-label" for="satire">Satire level</label>
+        <select id="satire">
+          <option>Let the analyst choose</option>
+          <option>Sharp but nuanced</option>
+          <option>Grotesque and funny</option>
+          <option>Bleak institutional absurdity</option>
+          <option>Furious political cartoon</option>
+          <option>Subtle symbolic unease</option>
+        </select>
+
+        <label class="field-label" for="reasoningProtocol">Reasoning protocol</label>
+        <select id="reasoningProtocol">
+          <option>Auto triadic reasoning</option>
+          <option>Triadic deep read</option>
+          <option>Short-form triadic read</option>
+          <option>Visual concept only</option>
+          <option>Final prompt mode</option>
+        </select>
+
+        <div class="steering-picker">
+          <label class="field-label" for="emphasisProtocol">Emphasis protocol</label>
+          <select id="emphasisProtocol">
+            <option value="auto">Auto-pick from topic</option>
+            <option value="evidence">Evidence and uncertainty</option>
+            <option value="power">Power and incentives</option>
+            <option value="material">Class and material futures</option>
+            <option value="symbolic">Myth and legitimacy</option>
+            <option value="narrative">Media and propaganda</option>
+            <option value="mural">Maximalist mural detail</option>
+            <option value="source">Source-grounded reading</option>
+          </select>
+
+          <div class="range-head">
+            <label class="field-label" for="realityTilt">Reality tilt</label>
+            <span id="tiltLabel">1 - grounded symbolic</span>
+          </div>
+          <input id="realityTilt" class="range-input" type="range" min="0" max="4" step="1" value="1">
+
+          <div id="emphasisList" class="emphasis-list" aria-label="Selected emphasis"></div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="top-button" id="lockConcept" type="button">Lock concept</button>
+          <button class="top-button" id="saveProject" type="button">Save chat</button>
+          <button class="top-button" id="loadProject" type="button">Load chat</button>
+          <button class="top-button" id="syncProtocols" type="button">Sync protocols</button>
+          <button class="top-button" id="exportMarkdown" type="button">Export Markdown</button>
+          <button class="top-button" id="generateImage" type="button">Generate image</button>
+        </div>
+
+        <div class="source-tools">
+          <label class="field-label" for="sourceUrl">HTML source</label>
+          <div class="source-url-row">
+            <input id="sourceUrl" type="url" placeholder="https://example.com/page.html">
+            <button class="top-button" id="loadSourceUrl" type="button">Load URL</button>
+          </div>
+          <button class="top-button" id="loadSourceFile" type="button">Load HTML file</button>
+          <input id="sourceFileInput" type="file" accept=".html,.htm,text/html" hidden>
+          <div id="sourceTray" class="source-tray" aria-live="polite"></div>
+        </div>
+
+        <div class="sketch-tools">
+          <label class="field-label" for="diagramType">Composition sketch</label>
+          <select id="diagramType">
+            <option value="triadic">Triadic Spine</option>
+            <option value="causal">Central Engine</option>
+            <option value="actors">Institutional Zones</option>
+            <option value="scenario">Narrative Flows</option>
+            <option value="matrix">Symbol Matrix</option>
+          </select>
+          <button class="top-button" id="renderDiagram" type="button">Render sketch</button>
+          <button class="top-button" id="exportSvg" type="button">Export SVG</button>
+        </div>
+      </aside>
+
+      <section id="diagramCanvas" class="diagram-canvas" aria-live="polite"></section>
+
+      <footer class="composer-wrap">
+        <div id="composerSourceBar" class="composer-source-bar" hidden>
+          <input id="composerSourceUrl" type="url" placeholder="Paste an HTML URL">
+          <button class="composer-mini-button" id="composerLoadSourceUrl" type="button">
+            <span class="icon" data-icon="link"></span>
+            <span>Add</span>
+          </button>
+        </div>
+        <div class="composer">
+          <div class="composer-action-wrap">
+            <button class="composer-icon" id="addMenuToggle" type="button" title="Add content" aria-label="Add content" aria-expanded="false">
+              <span class="icon" data-icon="plus"></span>
+            </button>
+            <div id="addMenu" class="add-menu" hidden>
+              <button type="button" data-add-action="file"><span class="icon" data-icon="paperclip"></span><span>Attach file</span></button>
+              <button type="button" data-add-action="html"><span class="icon" data-icon="file-code"></span><span>Load HTML file</span></button>
+              <button type="button" data-add-action="url"><span class="icon" data-icon="link"></span><span>Add HTML URL</span></button>
+            </div>
+          </div>
+          <input id="fileInput" type="file" multiple accept=".txt,.md,.markdown,.csv,.tsv,.json,.html,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/png,image/jpeg,image/webp,image/gif,text/plain,text/markdown,text/csv,application/json,application/pdf" hidden>
+          <textarea id="chatInput" placeholder="Ask anything"></textarea>
+          <button class="composer-icon mic" id="voiceInput" type="button" title="Voice input" aria-label="Voice input"><span class="icon" data-icon="mic"></span></button>
+          <button class="composer-icon image" id="quickImage" type="button" title="Generate image" aria-label="Generate image"><span class="icon" data-icon="image"></span></button>
+          <button id="sendMessage" class="send-button" type="button" title="Send message" aria-label="Send message"><span class="icon" data-icon="arrow-up"></span></button>
+        </div>
+        <p class="disclaimer">Visual Systems Analyst can make mistakes. Check important claims and sources.</p>
+      </footer>
+    </div>
+
+    <script src="app.js?v=20260526-progress1"></script>
+  </body>
+</html>
